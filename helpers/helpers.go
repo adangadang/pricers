@@ -57,6 +57,8 @@ func CreateHmac(key string, isBase64 bool, mode KeyDecodingMode) (hash.Hash, err
 	var k []byte
 
 	if isBase64 {
+		key = strings.ReplaceAll(key, "+", "-")  
+		key = strings.ReplaceAll(key, "/", "_")
 		b64DecodedKey, err = base64.RawURLEncoding.DecodeString(strings.TrimRight(key, "="))
 		if err == nil {
 			// If no error, then use the base 64 decoded key
